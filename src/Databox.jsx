@@ -26,7 +26,7 @@ export default function Databox({ title, data }) {
                         return (
                             <li>
                                 <p>
-                                    {index}: {item}
+                                    {index}: {item ? item.toFixed(2) : "--"}
                                 </p>
                             </li>
                         );

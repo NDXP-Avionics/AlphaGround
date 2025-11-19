@@ -3,6 +3,7 @@ import Databox from "./Databox";
 import Balloon from "./Balloon";
 import colormap from "colormap";
 import "./App.css";
+import Plumbing from "./Plumbing";
 
 function App() {
     const [alpha, setalpha] = useState({ temps: [], pressures: [], going: 0 });
@@ -18,7 +19,7 @@ function App() {
 
     useEffect(() => {
         //WebSockets
-        const socket = new WebSocket("ws://127.0.0.1:3333/data");
+        const socket = new WebSocket("ws://10.12.123.45:3333/data");
 
         socket.onmessage = (event) => {
             var data = JSON.parse(event.data);
@@ -65,10 +66,20 @@ function App() {
                     <h2 style={{ textAlign: "center", color: "var(--yellow)" }}>
                         Monitoring:
                     </h2>
-                    <Balloon
-                        cloudcolor={cloudcolor}
-                        cloud2color={cloud2color}
-                    ></Balloon>
+                    <div
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Plumbing
+                            cloudcolor={cloudcolor}
+                            cloud2color={cloud2color}
+                        ></Plumbing>
+                    </div>
+
                     <h3 style={{ textAlign: "center" }}>
                         clouds currently scaling color based on presure 0 and
                         pressure 1 data

@@ -3,7 +3,6 @@ import { app, BrowserWindow } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// __dirname equivalent in ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -12,20 +11,28 @@ function createWindow() {
         width: 800,
         height: 600,
         title: "AlphaGround",
+        webPreferences: {
+            nodeIntegration: false, // Best practice for security
+            contextIsolation: true,
+            preload: path.join(__dirname, "preload.js"), // Optional if you have one
+        },
     });
 
-    // load dev
+    // 1. Check if the app is packaged (Production) or in Development
+    if (!app.isPackaged && process.env.VITE_DEV_SERVER_URL) {
+        // --- DEVELOPMENT ---
+        mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL);
+        mainWindow.webContents.openDevTools();
+    } else {
+        // --- PRODUCTION ---
+        // Logic: __dirname points to 'app.asar/electron'
+        // We need to go up one level to find 'app.asar/dist'
+        const indexProdPath = path.join(__dirname, "../dist/index.html");
 
-    const devUrl = process.env.VITE_DEV_SERVER_URL || "http://localhost:5173";
-
-    mainWindow
-        .loadURL(devUrl)
-        .catch((err) => console.error("Failed to load URL:", err));
-
-    mainWindow.webContents.openDevTools();
-
-    //production
-    //mainWindow.loadFile(path.join(__dirname, "../dist/index.html"));
+        mainWindow.loadFile(indexProdPath).catch((e) => {
+            console.error("Failed to load file:", e);
+        });
+    }
 }
 
 app.setName("AlphaGround");

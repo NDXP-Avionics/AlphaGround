@@ -1,5 +1,5 @@
 {
-    "name": "alphaground",
+    "name": "AlphaGround",
     "productName": "AlphaGround",
     "private": true,
     "version": "0.0.0",
@@ -8,8 +8,9 @@
     "scripts": {
         "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
         "dev:vite": "vite",
-        "dev:electron": "wait-on http://localhost:5173 && electron electron/main.js",
+        "dev:electron": "wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron electron/main.js",
         "build": "vite build && electron-builder",
+        "build:react": "vite build",
         "start": "electron ."
     },
     "dependencies": {
@@ -23,6 +24,7 @@
         "@types/react-dom": "^19.2.2",
         "@vitejs/plugin-react": "^5.1.0",
         "concurrently": "^9.2.1",
+        "cross-env": "^10.1.0",
         "electron": "^39.2.1",
         "electron-builder": "^26.0.12",
         "eslint": "^9.39.1",
@@ -36,7 +38,7 @@
         "appId": "com.lukescholler.alphaground",
         "files": [
             "electron/**/*",
-            "dist/**/*",
+            "dist",
             "package.json"
         ],
         "directories": {
