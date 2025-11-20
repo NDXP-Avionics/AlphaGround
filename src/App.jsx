@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import Databox from "./Databox";
-import Balloon from "./Balloon";
-import colormap from "colormap";
+import chroma from "chroma-js";
 import "./App.css";
 import Plumbing from "./Plumbing";
 
 function App() {
-    const [alpha, setalpha] = useState({ temps: [], pressures: [], going: 0 });
+    const [alpha, setalpha] = useState({
+        temps: [],
+        pressures: [],
+        thrusts: [],
+        going: 0,
+    });
     const [cloudcolor, setcloudcolor] = useState("#FFF");
     const [cloud2color, setcloud2color] = useState("#FFF");
 
-    var colors = colormap({
-        colormap: "cool",
-        nshades: 4096,
-        format: "hex",
-        alpha: 1,
-    });
+    var colorscale = chroma.scale(["green", "yellow", "red"]);
 
     useEffect(() => {
         //WebSockets
@@ -24,6 +23,21 @@ function App() {
         socket.onmessage = (event) => {
             var data = JSON.parse(event.data);
             //console.log(data);
+
+            //convert pressure to psi
+            for (var i = 0; i < data.pressures.length; i++) {
+                data.pressures[i] =
+                    (((data.pressures[i] * 5) / 4096 - 0.5) * 1000) / 4;
+            }
+
+            //convert thrust to volts
+            for (var i = 0; i < data.thrusts.length; i++) {
+                data.thrusts[i] = Math.abs(
+                    ((data.thrusts[i] * 5) / (128 * Math.pow(2, 24)) / 15e-3) *
+                        500
+                );
+            }
+
             setalpha(data);
         };
 
@@ -33,8 +47,8 @@ function App() {
     useEffect(() => {
         var index = alpha.pressures[0];
         var index1 = alpha.pressures[1];
-        setcloudcolor(colors[Math.floor(index / 2)]);
-        setcloud2color(colors[Math.floor(index1) - 800]);
+        setcloudcolor(colorscale(Math.abs(index * 300) / 1000));
+        setcloud2color(colorscale(Math.abs(index1 / 1000)));
     }, [alpha]);
 
     return (
@@ -55,6 +69,10 @@ function App() {
                         <Databox
                             title={"Pressures:"}
                             data={alpha.pressures}
+                        ></Databox>
+                        <Databox
+                            title={"Thrusts:"}
+                            data={alpha.thrusts}
                         ></Databox>
                     </div>
                 </div>
