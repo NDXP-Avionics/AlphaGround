@@ -21,17 +21,15 @@ export default function Databox({ title, data }) {
                 </b>
             </div>
             <ul style={{ listStyleType: "none" }}>
-                <div>
-                    {data.map((item, index) => {
-                        return (
-                            <li>
-                                <p>
-                                    {index}: {item ? item.toFixed(2) : "--"}
-                                </p>
-                            </li>
-                        );
-                    })}
-                </div>
+                {data.map((item, index) => {
+                    return (
+                        <li>
+                            <p>
+                                {index}: {item ? item.toFixed(2) : "--"}
+                            </p>
+                        </li>
+                    );
+                })}
             </ul>
         </div>
     );

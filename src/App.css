@@ -44,13 +44,37 @@ h1{
 }
 
 .left{
-    flex:1
+    flex:1;
+    min-width:150px;
+    overflow:scroll;
 }
 
 .center{
-    flex:5
+    flex:5;
+    overflow:hidden;
+    padding-left: 30px;
+    padding-right:30px;
 }
 
 .right{
-    flex:1
+    flex:1;
+    text-align:center;
+}
+
+.solenoid:hover{
+    cursor:pointer;
+}
+
+.button{
+    width:80%;
+    background-color:var(--dark-blue);
+    padding:10px;
+    border-radius: 10px;
+    border:1px solid var(--dark-yellow);
+    text-align: center;
+    margin:auto;
+}
+
+.button:hover{
+    cursor:pointer
 }

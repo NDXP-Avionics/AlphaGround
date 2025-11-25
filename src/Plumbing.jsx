@@ -1,11 +1,17 @@
 import * as React from "react";
+import "./App.css";
+
 const Plumbing = (props) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlns:lucid="lucid"
         xmlnsXlink="http://www.w3.org/1999/xlink"
-        width={1036.49}
-        height={509.28}
+        viewBox="0 0 1036.49 509.28"
+        style={{
+            width: "100%",
+            height: "auto",
+            maxWidth: "100%",
+        }}
         {...props}
     >
         <g
@@ -449,7 +455,15 @@ const Plumbing = (props) => (
                 d="M950 126a6 6 0 0 1 6-6h28a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6h-28a6 6 0 0 1-6-6z"
             />
             <path
-                fill="var(--blue)"
+                className="solenoid"
+                onClick={() => {
+                    props.sendCommand(
+                        props.alpha.solenoids[1]
+                            ? props.COMMANDS.S2_OFF
+                            : props.COMMANDS.S2_ON
+                    );
+                }}
+                fill={props.alpha.solenoids[1] ? "green" : "red"}
                 stroke="#1071e5"
                 d="M954 140v20l15-10zm15 10h2zm2 0 15-10v20zm-1 0v-10zm0-10h-10v-20h20v20z"
             />
@@ -462,11 +476,21 @@ const Plumbing = (props) => (
                 fill="none"
                 d="M930 376a6 6 0 0 1 6-6h28a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6h-28a6 6 0 0 1-6-6z"
             />
+
             <path
-                fill="var(--blue)"
+                className="solenoid"
+                onClick={() => {
+                    props.sendCommand(
+                        props.alpha.solenoids[2]
+                            ? props.COMMANDS.S3_OFF
+                            : props.COMMANDS.S3_ON
+                    );
+                }}
+                fill={props.alpha.solenoids[2] ? "green" : "red"}
                 stroke="#e81313"
                 d="M934 390v20l15-10zm15 10h2zm2 0 15-10v20zm-1 0v-10zm0-10h-10v-20h20v20z"
             />
+
             <path
                 fill="none"
                 d="M940 376a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6h-8a6 6 0 0 1-6-6z"
@@ -477,7 +501,15 @@ const Plumbing = (props) => (
                 d="M1136 380a6 6 0 0 0-6 6v28a6 6 0 0 0 6 6h28a6 6 0 0 0 6-6v-28a6 6 0 0 0-6-6z"
             />
             <path
-                fill="var(--blue)"
+                className="solenoid"
+                onClick={() => {
+                    props.sendCommand(
+                        props.alpha.solenoids[3]
+                            ? props.COMMANDS.S4_OFF
+                            : props.COMMANDS.S4_ON
+                    );
+                }}
+                fill={props.alpha.solenoids[3] ? "green" : "red"}
                 stroke="#008a0e"
                 d="M1150 384h20l-10 15zm10 15v2zm0 2-10 15h20zm0-1h-10zm-10 0v-10h-20v20h20z"
             />
@@ -496,7 +528,15 @@ const Plumbing = (props) => (
                 d="M890 56a6 6 0 0 1 6-6h28a6 6 0 0 1 6 6v28a6 6 0 0 1-6 6h-28a6 6 0 0 1-6-6z"
             />
             <path
-                fill="var(--blue)"
+                className="solenoid"
+                onClick={() => {
+                    props.sendCommand(
+                        props.alpha.solenoids[0]
+                            ? props.COMMANDS.S1_OFF
+                            : props.COMMANDS.S1_ON
+                    );
+                }}
+                fill={props.alpha.solenoids[0] ? "green" : "red"}
                 stroke="#1071e5"
                 d="M894 70v20l15-10zm15 10h2zm2 0 15-10v20zm-1 0V70zm0-10h-10V50h20v20z"
             />

@@ -7,7 +7,7 @@
     "type": "module",
     "scripts": {
         "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
-        "dev:vite": "vite",
+        "dev:vite": "vite --host",
         "dev:electron": "wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron electron/main.js",
         "build": "vite build && electron-builder",
         "build:react": "vite build",
