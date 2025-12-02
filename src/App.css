@@ -5,7 +5,7 @@
     color:white;
 
     --darkest-blue: #000814;
-    --dark-blue: #001d3d;
+    --dark-blue: #181818;
     --blue: #003566;
     --dark-yellow: #ffc300;
     --yellow: #ffd60a;
@@ -25,7 +25,7 @@ html{
     margin:0px;
     padding:0px;
     width:100%;
-    background-color: #2f425f;
+    background-color: #181818;
 }
 
 html, body {
@@ -47,6 +47,8 @@ h1{
     flex:1;
     min-width:150px;
     overflow:scroll;
+    padding-left:10px;
+    padding-right:10px;
 }
 
 .center{
@@ -77,4 +79,11 @@ h1{
 
 .button:hover{
     cursor:pointer
+}
+
+.glow{
+    border: 1px solid var(--yellow);
+    box-shadow: 0px 0px 5px var(--yellow);
+    box-sizing: border-box;
+    border-radius: 20px;
 }

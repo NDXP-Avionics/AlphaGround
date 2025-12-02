@@ -3,28 +3,41 @@ export default function Databox({ title, data }) {
         <div
             style={{
                 width: "100%",
-                border: "2px solid var(--blue)",
-                boxSizing: "border-box",
                 backgroundColor: "var(--dark-blue)",
+                overflow: "hidden",
+                marginTop: "10px",
                 flex: 1,
+                fontFamily: "Space Mono",
+                fontWeight: "400",
+                fontStyle: "normal",
             }}
+            className="glow"
         >
             <div
                 style={{
-                    backgroundColor: "var(--blue)",
                     textAlign: "center",
                     color: "var(--dark-yellow)",
+                    margin: "10px",
+                    fontSize: "20px",
                 }}
             >
                 <b>
                     <i>{title}</i>
                 </b>
             </div>
-            <ul style={{ listStyleType: "none" }}>
+            <ul
+                style={{
+                    listStyleType: "none",
+                    margin: "0px",
+                    marginBottom: "20px",
+                    padding: "0px",
+                    textAlign: "Center",
+                }}
+            >
                 {data.map((item, index) => {
                     return (
                         <li>
-                            <p>
+                            <p style={{ margin: "2px" }}>
                                 {index}: {item ? item.toFixed(2) : "--"}
                             </p>
                         </li>
