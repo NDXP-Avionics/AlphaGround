@@ -14,6 +14,7 @@ function App() {
         pressures: [],
         thrusts: [],
         solenoids: [0, 0, 0, 0],
+        acc: [0, 0, 0, 0],
         going: 0,
     });
 
@@ -22,6 +23,7 @@ function App() {
         temps: [],
         pressures: [],
         thrusts: [],
+        acc: [0, 0, 0],
         solenoids: [0, 0, 0, 0],
         going: 0,
     });
@@ -34,6 +36,8 @@ function App() {
     //chart buffers
     const tempbuffer = useRef([[], [], [], []]);
     const [temptdata, settempdata] = useState([[], [], [], []]);
+    const accbuffer = useRef([[], [], []]);
+    const [accdata, setaccdata] = useState([[], [], []]);
     const thrustbuffer = useRef([]);
     const [thrustdata, setthrustdata] = useState([]);
     const pressurebuffers = useRef([
@@ -84,7 +88,7 @@ function App() {
 
     //websocket
     useEffect(() => {
-        socket.current = new WebSocket("ws://10.12.123.45:3333/data");
+        socket.current = new WebSocket("ws://127.0.0.1:3333/data"); //ws://10.12.123.45:3333/data ////192.168.33.3/data
 
         socket.current.onmessage = (event) => {
             // Parse data
@@ -121,6 +125,15 @@ function App() {
                 if (data.temps[i] !== undefined && !isNaN(data.temps[i])) {
                     tempbuffer.current[i].push({
                         value: data.temps[i],
+                    });
+                }
+            }
+
+            //push data to acc buffer
+            for (var i = 0; i < 3; i++) {
+                if (data.acc[i] !== undefined && !isNaN(data.acc[i])) {
+                    accbuffer.current[i].push({
+                        value: data.acc[i],
                     });
                 }
             }
@@ -180,6 +193,21 @@ function App() {
                     settempdata((prev) => {
                         const updated = [...prev];
                         updated[i] = [...updated[i], ...tempbuf].slice(-100); // keep last 100
+                        return updated;
+                    });
+                }
+            }
+
+            // update acc
+            for (let i = 0; i < 3; i++) {
+                const accbuf = accbuffer.current[i];
+
+                if (accbuf.length > 0) {
+                    accbuffer.current[i] = [];
+
+                    setaccdata((prev) => {
+                        const updated = [...prev];
+                        updated[i] = [...updated[i], ...accbuf].slice(-100); // keep last 100
                         return updated;
                     });
                 }
@@ -283,6 +311,11 @@ function App() {
                         title={"Temps:"}
                         data={alpha.temps}
                         chartdata={temptdata}
+                    ></Databox>
+                    <Databox
+                        title={"Orientation:"}
+                        data={alpha.acc}
+                        chartdata={accdata}
                     ></Databox>
                     <Databox
                         title={"Pressures:"}
