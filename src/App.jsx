@@ -31,6 +31,8 @@ function App() {
         acc: [0, 0, 0],
         solenoids: [0, 0, 0, 0],
         going: 0,
+        keys: [0],
+        burn: [0],
     });
 
     //random state
