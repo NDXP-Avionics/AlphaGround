@@ -104,7 +104,7 @@ function App() {
 
     //websocket
     useEffect(() => {
-        socket.current = new WebSocket("ws://127.0.0.1:3333/data"); //ws://10.12.123.45:3333/data ////192.168.33.3/data
+        socket.current = new WebSocket("ws://10.12.123.45:3333/data"); //ws://10.12.123.45:3333/data ////192.168.33.3/data
 
         socket.current.onmessage = (event) => {
             // Parse data
