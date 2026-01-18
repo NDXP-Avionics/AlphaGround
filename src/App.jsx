@@ -128,7 +128,7 @@ function App() {
                         ((data.thrusts[i] * 5) /
                             (128 * Math.pow(2, 24)) /
                             15e-3) *
-                            500
+                            500,
                     );
 
                     if (newt > 1200) {
@@ -242,7 +242,7 @@ function App() {
                     setpressuredata((prev) => {
                         const updated = [...prev];
                         updated[i] = [...updated[i], ...pressurebuf].slice(
-                            -100
+                            -100,
                         ); // keep last 100
                         return updated;
                     });
@@ -273,19 +273,19 @@ function App() {
 
             if (event.key === "1")
                 sendCommand(
-                    currentSolenoids[0] ? COMMANDS.S1_OFF : COMMANDS.S1_ON
+                    currentSolenoids[0] ? COMMANDS.S1_OFF : COMMANDS.S1_ON,
                 );
             if (event.key === "2")
                 sendCommand(
-                    currentSolenoids[1] ? COMMANDS.S2_OFF : COMMANDS.S2_ON
+                    currentSolenoids[1] ? COMMANDS.S2_OFF : COMMANDS.S2_ON,
                 );
             if (event.key === "3")
                 sendCommand(
-                    currentSolenoids[2] ? COMMANDS.S3_OFF : COMMANDS.S3_ON
+                    currentSolenoids[2] ? COMMANDS.S3_OFF : COMMANDS.S3_ON,
                 );
             if (event.key === "4")
                 sendCommand(
-                    currentSolenoids[3] ? COMMANDS.S4_OFF : COMMANDS.S4_ON
+                    currentSolenoids[3] ? COMMANDS.S4_OFF : COMMANDS.S4_ON,
                 );
         };
 
