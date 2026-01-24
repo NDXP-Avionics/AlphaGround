@@ -8,6 +8,7 @@ import Datachart from "./Datachart";
 import Firebutton from "./Firebutton";
 import ThreeScene from "./ThreeScene";
 import { Rocketship } from "./Rocketship";
+import AbortButton from "./AbortButton";
 
 function App() {
     //UI state
@@ -87,6 +88,7 @@ function App() {
         S4_OFF: 7,
         FIRE: 8,
         RST: 9,
+        ABRT: 10
     };
 
     const STATES = [
@@ -95,7 +97,7 @@ function App() {
         "IGNITE",
         "BURNING",
         "COOLDOWN",
-        "ABORT",
+        "ABORT"
     ];
 
     const socket = useRef();
@@ -396,10 +398,15 @@ function App() {
                     commands={COMMANDS}
                     sendCommand={sendCommand}
                 ></Firebutton>
+                <AbortButton
+                    commands={COMMANDS}
+                    sendCommand={sendCommand}
+                ></AbortButton>
+                <br></br>
                 <h3>State: {STATES[alpha.state]}</h3>
                 {STATES[alpha.state] == "ABORT" ? (
                     <button
-                        onClick={() => {
+                        onClick={() => {COMMMANDS
                             sendCommand(COMMANDS.RST);
                         }}
                     >
