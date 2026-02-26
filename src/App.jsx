@@ -24,7 +24,7 @@ function App() {
         state: 0,
     });
 
-    //raw data
+    //raw data//
     const latestData = useRef({
         temps: [],
         pressures: [],
@@ -88,7 +88,7 @@ function App() {
         S4_OFF: 7,
         FIRE: 8,
         RST: 9,
-        ABRT: 10
+        ABRT: 10,
     };
 
     const STATES = [
@@ -97,7 +97,7 @@ function App() {
         "IGNITE",
         "BURNING",
         "COOLDOWN",
-        "ABORT"
+        "ABORT",
     ];
 
     const socket = useRef();
@@ -406,7 +406,8 @@ function App() {
                 <h3>State: {STATES[alpha.state]}</h3>
                 {STATES[alpha.state] == "ABORT" ? (
                     <button
-                        onClick={() => {COMMMANDS
+                        onClick={() => {
+                            COMMMANDS;
                             sendCommand(COMMANDS.RST);
                         }}
                     >
