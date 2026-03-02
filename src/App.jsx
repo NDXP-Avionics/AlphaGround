@@ -106,7 +106,7 @@ function App() {
 
     //websocket
     useEffect(() => {
-        socket.current = new WebSocket("ws://10.12.123.45:3333/data"); //ws://10.12.123.45:3333/data ////192.168.33.3/data
+        socket.current = new WebSocket("ws://127.0.0.1:3333/data"); //ws://10.12.123.45:3333/data ////192.168.33.3/data
 
         socket.current.onmessage = (event) => {
             // Parse data
@@ -118,12 +118,14 @@ function App() {
             // convert pressure to psi
             if (data.pressures) {
                 for (var i = 0; i < data.pressures.length; i++) {
-                    data.pressures[i] =
-                        (((data.pressures[i] * 5) / 4096 - 0.5) * 1000) / 4;
+                    if (data.pressures[i] < 0 || data.pressures[i] > 5000) {
+                        data.pressures[i] = 0;
+                    }
                 }
             }
 
             // convert thrust to volts
+            /*
             if (data.thrusts) {
                 for (var i = 0; i < data.thrusts.length; i++) {
                     var newt = Math.abs(
@@ -140,6 +142,7 @@ function App() {
                     data.thrusts[i] = newt;
                 }
             }
+                */
 
             //push data to temp buffer
             for (var i = 0; i < 4; i++) {
