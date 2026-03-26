@@ -406,7 +406,7 @@ function App() {
                 <h3>State: {STATES[alpha.state]}</h3>
                 {STATES[alpha.state] == "ABORT" ? (
                     <button
-                        onClick={() => {COMMMANDS
+                        onClick={() => {
                             sendCommand(COMMANDS.RST);
                         }}
                     >
