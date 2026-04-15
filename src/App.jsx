@@ -216,7 +216,9 @@ function App() {
 
                     settempdata((prev) => {
                         const updated = [...prev];
-                        updated[i] = [...updated[i], ...tempbuf].slice(-100); // keep last 100
+                        updated[i] = movingAverage(
+                            [...updated[i], ...pressurebuf].slice(-100),
+                        ); // keep last 100
                         return updated;
                     });
                 }
@@ -246,9 +248,9 @@ function App() {
 
                     setpressuredata((prev) => {
                         const updated = [...prev];
-                        updated[i] = [...updated[i], ...pressurebuf].slice(
-                            -100,
-                        ); // keep last 100
+                        updated[i] = movingAverage(
+                            [...updated[i], ...pressurebuf].slice(-100),
+                        );
                         return updated;
                     });
                 }
@@ -316,9 +318,19 @@ function App() {
         setnoidslocked(0);
         alert("SOLENOIDS UNLOCKED");
     }
+
     function lockNoids() {
         setnoidslocked(1);
         alert("SOLENOIDS LOCKED");
+    }
+
+    function movingAverage(data, w = 30) {
+        return data.map((pt, i) => {
+            const slice = data.slice(Math.max(0, i - w + 1), i + 1);
+            return {
+                value: slice.reduce((s, p) => s + p.value, 0) / slice.length,
+            };
+        });
     }
 
     return (
