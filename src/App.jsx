@@ -422,7 +422,6 @@ function App() {
                 {STATES[alpha.state] == "ABORT" ? (
                     <button
                         onClick={() => {
-                            COMMMANDS;
                             sendCommand(COMMANDS.RST);
                         }}
                     >
