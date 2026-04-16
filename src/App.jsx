@@ -217,7 +217,7 @@ function App() {
                     settempdata((prev) => {
                         const updated = [...prev];
                         updated[i] = movingAverage(
-                            [...updated[i], ...pressurebuf].slice(-100),
+                            [...updated[i], ...tempbuf].slice(-100),
                         ); // keep last 100
                         return updated;
                     });
